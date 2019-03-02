@@ -1,0 +1,39 @@
+{
+	"build": {
+		"core": "nRF5",
+		"cpu": "cortex-m4",
+		"extra_flags": "-DBOARD_R40",
+		"f_cpu": "64000000L",
+		"ldscript": "nrf52_xxaa.ld",
+		"mcu": "nrf52832",
+		"variant": "nRF52DK"
+	},
+	"connectivity": [
+		"bluetooth"
+	],
+	"debug": {
+		"default_tools": [
+			"st-link"
+		],
+		"jlink_device": "nRF52832_xxAA",
+		"svd_path": "nrf52.svd"
+	},
+	"frameworks": [
+		"arduino",
+		"mbed"
+	],
+	"name": "nRF52 Sensor R40",
+	"upload": {
+		"maximum_ram_size": 65536,
+		"maximum_size": 524288,
+		"protocol": "stlink",
+		"protocols": [
+			"jlink",
+			"nrfjprog",
+			"stlink",
+			"mbed"
+		]
+	},
+	"url": "http://aliexpress.com",
+	"vendor": "Noname"
+}
