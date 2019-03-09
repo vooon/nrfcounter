@@ -22,6 +22,11 @@ Board have following chips:
 - CR2032 battery
 
 
+Photo
+-----
+
+![sensor R40 photo](NRF52832-SENSOR-R40.jpg)
+
 
 nRF52832 Pinout
 ---------------
