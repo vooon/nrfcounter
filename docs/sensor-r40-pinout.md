@@ -74,9 +74,9 @@ nRF52832 Pinout
 |-----|------|----------|-------------|
 |  37 | P0.25 | | flash pin 5 - SI |
 |  38 | P0.26 | | flash pin 6 - SCK |
-|  39 | P0.27 | | RGB ? |
-|  40 | P0.28 | | RGB ? |
-|  41 | P0.29 | | RGB ? |
+|  39 | P0.27 | | RGB R |
+|  40 | P0.28 | | RGB G |
+|  41 | P0.29 | | RGB B |
 |  42 | P0.30 | | flash pin 1 - !CS |
 |  43 | P0.31 | | flash pin 2 - SO |
 |  44 | NC | n/a | |

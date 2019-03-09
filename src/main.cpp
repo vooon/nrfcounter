@@ -11,27 +11,33 @@
 #include "mbed_events.h"
 #include <stdio.h>
 
-DigitalOut led_r(P0_27), led_g(P0_28), led_b(P0_29);
+// Leads are inverted, active LOW
+DigitalOut led_r(P0_27),
+    led_g(P0_28),
+    led_b(P0_29);
 
 void blink(DigitalOut* gpio)
 {
-    *gpio = !gpio->read();
+	*gpio = !gpio->read();
 }
 
 int main()
 {
-    // creates a queue with the default size
-    EventQueue queue;
+	led_r = led_g = led_b = 1;
 
-    // events are simple callbacks
-    //queue.call(printf, "called immediately\n");
-    //queue.call_in(2000, printf, "called in 2 seconds\n");
-    //queue.call_every(1000, printf, "called every 1 seconds\n");
+	// creates a queue with the default size
+	EventQueue queue;
 
-    queue.call_every(10, blink, &led_r);
-    queue.call_every(20, blink, &led_g);
-    queue.call_every(30, blink, &led_b);
+	// events are simple callbacks
+	// queue.call(printf, "called immediately\n");
+	// queue.call_in(2000, printf, "called in 2 seconds\n");
+	// queue.call_every(1000, printf, "called every 1 seconds\n");
 
-    // events are executed by the dispatch method
-    queue.dispatch();
+	//queue.call_every(1000, blink, &led_r);
+	//queue.call_every(1000, blink, &led_g);
+	queue.call_every(1000, blink, &led_b);
+
+	// events are executed by the dispatch method
+	queue.dispatch();
+	//while(true);
 }

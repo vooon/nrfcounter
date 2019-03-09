@@ -1,0 +1,10 @@
+---
+#BasedOnStyle:	LLVM
+#BasedOnStyle:	Chromium
+#BasedOnStyle:   Mozilla
+BasedOnStyle:	WebKit
+Language:	Cpp
+Standard:	Cpp11
+IndentWidth:	8
+TabWidth:	8
+UseTab:		Always
