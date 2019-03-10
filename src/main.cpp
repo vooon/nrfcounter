@@ -7,37 +7,54 @@
  * @copyright 2019
  */
 
+#include "RGBLed.h"
 #include "mbed.h"
 #include "mbed_events.h"
+#include <array>
 #include <stdio.h>
 
 // Leads are inverted, active LOW
-DigitalOut led_r(P0_27),
-    led_g(P0_28),
-    led_b(P0_29);
+RGBLed led(P0_27, P0_28, P0_29);
+// I2C's
+I2C i2c_ap_bme(P0_19, P0_21);
+I2C i2c_bmi_bmp(P0_11, P0_12);
 
-void blink(DigitalOut* gpio)
+// Queue
+EventQueue event_queue;
+
+
+void next_color()
 {
-	*gpio = !gpio->read();
+	const std::array<RGBLed::Color, 8> colors{{
+		RGBLed::BLACK,
+		RGBLed::RED,
+		RGBLed::GREEN,
+		RGBLed::BLUE,
+		RGBLed::MAGENTA,
+		RGBLed::CYAN,
+		RGBLed::YELLOW,
+		RGBLed::WHITE
+	}};
+
+	static auto it = colors.cbegin();
+
+	auto color = *it;
+	led.setColor(color);
+
+	if (++it == colors.cend())
+		it = colors.cbegin();
 }
 
 int main()
 {
-	led_r = led_g = led_b = 1;
-
-	// creates a queue with the default size
-	EventQueue queue;
+	led.setColor(RGBLed::BLACK);
 
 	// events are simple callbacks
 	// queue.call(printf, "called immediately\n");
 	// queue.call_in(2000, printf, "called in 2 seconds\n");
 	// queue.call_every(1000, printf, "called every 1 seconds\n");
 
-	//queue.call_every(1000, blink, &led_r);
-	//queue.call_every(1000, blink, &led_g);
-	queue.call_every(1000, blink, &led_b);
+	event_queue.call_every(1000, next_color);
 
-	// events are executed by the dispatch method
-	queue.dispatch();
-	//while(true);
+	event_queue.dispatch();
 }
