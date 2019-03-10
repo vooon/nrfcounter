@@ -17,15 +17,18 @@
 #include "BME280.h"
 #include "RGBLed.h"
 
+#include "PowerMeterService.h"
+
 // Leads are inverted, active LOW
 RGBLed led(P0_27, P0_28, P0_29);
+
 // I2C's
 I2C i2c_ap_bme(P0_19, P0_21);
 I2C i2c_bmi_bmp(P0_11, P0_12);
 
 BME280 bme(i2c_ap_bme);
 
-const char DEVICE_NAME[] = "NRF-COUNTER";
+const char DEVICE_NAME[] = "Power Meter";
 const uint16_t uuid16_list[] = { GattService::UUID_ENVIRONMENTAL_SERVICE };
 
 // Queue
@@ -103,6 +106,8 @@ void sched_ble_events_processing(BLE::OnEventsToProcessCallbackContext* context)
 int main()
 {
 	led.setColor(RGBLed::BLACK);
+
+	bme.initialize();
 
 	auto& ble = BLE::Instance();
 	ble.onEventsToProcess(sched_ble_events_processing);
