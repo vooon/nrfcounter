@@ -63,19 +63,19 @@ void ble_init_complete(BLE::InitializationCompleteCallbackContext* params)
 	BLE& ble = params->ble;
 	auto& gap = ble.gap();
 
-	auto error = params->error;
+	//auto error = params->error;
 
 	penvsrv = new EnvironmentalService(ble);
 	gap.onDisconnection(disconnection_cb);
 
 	// Setup advertising
 	gap.accumulateAdvertisingPayload(GapAdvertisingData::BREDR_NOT_SUPPORTED | GapAdvertisingData::LE_GENERAL_DISCOVERABLE);
-	gap.accumulateAdvertisingPayload(GapAdvertisingData::COMPLETE_LIST_16BIT_SERVICE_IDS, uuid16_list, sizeof(uuid16_list));
-	gap.accumulateAdvertisingPayload(GapAdvertisingData::COMPLETE_LOCAL_NAME, DEVICE_NAME, sizeof(DEVICE_NAME));
+	gap.accumulateAdvertisingPayload(GapAdvertisingData::COMPLETE_LIST_16BIT_SERVICE_IDS, (uint8_t*)uuid16_list, sizeof(uuid16_list));
+	gap.accumulateAdvertisingPayload(GapAdvertisingData::COMPLETE_LOCAL_NAME, (uint8_t*)DEVICE_NAME, sizeof(DEVICE_NAME));
 	gap.setAdvertisingType(GapAdvertisingParams::ADV_CONNECTABLE_UNDIRECTED);
 	gap.setAdvertisingInterval(1000);
 
-	error = gap.startAdvertising();
+	gap.startAdvertising();
 }
 
 void read_sensor()
